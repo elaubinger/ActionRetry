@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionRetry", "ActionRetry\ActionRetry.csproj", "{7096DB5C-B6F4-48FB-8C5F-A5E310B11884}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionRetryTest", "ActionRetryTest\ActionRetryTest.csproj", "{250C497E-17C8-4699-BDF2-00BB4307EF7D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7096DB5C-B6F4-48FB-8C5F-A5E310B11884} = {7096DB5C-B6F4-48FB-8C5F-A5E310B11884}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +20,10 @@ Global
 		{7096DB5C-B6F4-48FB-8C5F-A5E310B11884}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7096DB5C-B6F4-48FB-8C5F-A5E310B11884}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7096DB5C-B6F4-48FB-8C5F-A5E310B11884}.Release|Any CPU.Build.0 = Release|Any CPU
+		{250C497E-17C8-4699-BDF2-00BB4307EF7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{250C497E-17C8-4699-BDF2-00BB4307EF7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{250C497E-17C8-4699-BDF2-00BB4307EF7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{250C497E-17C8-4699-BDF2-00BB4307EF7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
