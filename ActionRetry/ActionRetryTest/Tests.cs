@@ -21,12 +21,12 @@ namespace ActionRetryTest
                 {
                     await Task.Delay(0);
                     return true;
-                }, backoff: enumVal).BeginASync());
+                }, backoff: enumVal).BeginAsync());
                 Assert.IsFalse(await new Retry(async () =>
                 {
                     await Task.Delay(0);
                     return false;
-                }, backoff: enumVal).BeginASync());
+                }, backoff: enumVal).BeginAsync());
             }
         }
 
@@ -48,7 +48,7 @@ namespace ActionRetryTest
                     {
                         await Task.Delay(0);
                         throw new Exception();
-                    }, backoff: enumVal).BeginASync();
+                    }, backoff: enumVal).BeginAsync();
                     Assert.Fail();
                 }
                 catch (Exception) { }
@@ -72,7 +72,7 @@ namespace ActionRetryTest
                     {
                         await Task.Delay(0);
                         throw new Exception();
-                    }, ignoreExceptions: true, backoff: enumVal).BeginASync();
+                    }, ignoreExceptions: true, backoff: enumVal).BeginAsync();
                 }
                 catch (Exception) { Assert.Fail(); }
             }
@@ -95,7 +95,7 @@ namespace ActionRetryTest
                     {
                         await Task.Delay(0);
                         throw new ArgumentException();
-                    }, exceptionBlacklist: new HashSet<Type>() { typeof(ArgumentException) }, backoff: enumVal).BeginASync();
+                    }, exceptionBlacklist: new HashSet<Type>() { typeof(ArgumentException) }, backoff: enumVal).BeginAsync();
                 }
                 catch (ArgumentException) { }
             }
@@ -118,7 +118,7 @@ namespace ActionRetryTest
                     {
                         await Task.Delay(0);
                         throw new ArgumentException();
-                    }, exceptionWhitelist: new HashSet<Type>() { typeof(ArgumentException) }, backoff: enumVal).BeginASync();
+                    }, exceptionWhitelist: new HashSet<Type>() { typeof(ArgumentException) }, backoff: enumVal).BeginAsync();
                 }
                 catch (ArgumentException) { Assert.Fail(); }
             }

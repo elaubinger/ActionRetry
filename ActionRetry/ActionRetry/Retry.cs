@@ -19,7 +19,7 @@ namespace ActionRetry
         #region Delegates
         public delegate bool ToRetry();
 
-        public delegate Task<bool> ToRetryASync();
+        public delegate Task<bool> ToRetryAsync();
         #endregion
 
         #region EventArgs
@@ -48,7 +48,7 @@ namespace ActionRetry
         #region Variable Declaration
 
         private readonly ToRetry toRetry;
-        private readonly ToRetryASync toRetryASync;
+        private readonly ToRetryAsync toRetryAsync;
         private readonly Backoff backoff;
 
         public readonly int
@@ -57,7 +57,7 @@ namespace ActionRetry
 
         public readonly bool
             IgnoreExceptions,
-            IsASync;
+            IsAsync;
 
         public readonly HashSet<Type>
             ExceptionWhitelist,
@@ -82,11 +82,11 @@ namespace ActionRetry
             : this(attempts, initialDelay, ignoreExceptions, exceptionWhitelist, exceptionBlacklist, backoff)
         {
             this.toRetry = toRetry;
-            IsASync = false;
+            IsAsync = false;
         }
 
         public Retry(
-            ToRetryASync toRetryASync,
+            ToRetryAsync toRetryAsync,
             int attempts = 5,
             int initialDelay = 50,
             bool ignoreExceptions = false,
@@ -96,8 +96,8 @@ namespace ActionRetry
             )
             : this(attempts, initialDelay, ignoreExceptions, exceptionWhitelist, exceptionBlacklist, backoff)
         {
-            this.toRetryASync = toRetryASync;
-            IsASync = true;
+            this.toRetryAsync = toRetryAsync;
+            IsAsync = true;
         }
 
         private Retry(
@@ -122,7 +122,7 @@ namespace ActionRetry
 
         public bool Begin()
         {
-            if (IsASync)
+            if (IsAsync)
                 throw new ArgumentException($"{nameof(Retry)} is not synchronous");
 
             ThrowIfNull(($"{nameof(toRetry)}", toRetry));
@@ -161,12 +161,12 @@ namespace ActionRetry
             return false;
         }
 
-        public async Task<bool> BeginASync()
+        public async Task<bool> BeginAsync()
         {
-            if (!IsASync)
-                throw new ArgumentException($"{nameof(Retry)} is not asynchronous");
+            if (!IsAsync)
+                throw new ArgumentException($"{nameof(Retry)} is not Asynchronous");
 
-            ThrowIfNull(($"{nameof(toRetryASync)}", toRetryASync));
+            ThrowIfNull(($"{nameof(toRetryAsync)}", toRetryAsync));
 
             for (int attempt = 1; attempt <= Attempts; attempt++)
             {
@@ -174,7 +174,7 @@ namespace ActionRetry
 
                 try
                 {
-                    if (await toRetryASync())
+                    if (await toRetryAsync())
                         return true;
                 }
                 catch (Exception ex)
